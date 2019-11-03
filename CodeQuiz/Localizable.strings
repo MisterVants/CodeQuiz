@@ -9,6 +9,7 @@
 "loading" = "Loading...";
 "start" = "Start";
 "reset" = "Reset";
+"placeholderText" = "Insert Word";
 
 "quiz.success.title" = "Congratulations";
 "quiz.success.message" = "Good job! You found all the answers on time. Keep up with the great work.";

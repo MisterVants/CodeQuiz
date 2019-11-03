@@ -11,6 +11,7 @@ import Foundation
 protocol QuizGameDelegate: AnyObject {
     func quizGame(_ game: QuizGame, shouldUpdateRemainingTime remainingTime: TimeInterval)
     func quizGame(_ game: QuizGame, shouldUpdateScore newScore: Int)
+    func quizGame(_ game: QuizGame, didInsertAnswerAt index: Int)
     func quizGame(_ game: QuizGame, didChangeState newState: QuizGame.State)
     func quizGame(_ game: QuizGame, didFinishWithResult finishResult: QuizGame.FinishResult)
 }
@@ -56,7 +57,7 @@ class QuizGame {
     
     private var allAnswersAreMatching: Bool {
         guard let quiz = quiz else { return false }
-        return Set(matchedAnswers) == Set(quiz.answer)
+        return Set(matchedAnswers.map { $0.lowercased() }) == Set(quiz.answer.map { $0.lowercased() })
     }
     
     init(dateGenerator: @escaping () -> Date = Date.init) {
@@ -93,8 +94,10 @@ class QuizGame {
     func matchAnswer(_ word: String) -> Bool {
         guard state == .playing, let quiz = quiz else { return false }
         
-        if quiz.answer.contains(word) && !matchedAnswers.contains(word) {
-            matchedAnswers.insert(word, at: 0)
+        if quiz.answer.containsCaseInsensitive(word) && !matchedAnswers.containsCaseInsensitive(word) {
+            let insertIndex = 0
+            matchedAnswers.insert(word, at: insertIndex)
+            delegate?.quizGame(self, didInsertAnswerAt: insertIndex)
             delegate?.quizGame(self, shouldUpdateScore: currentScore)
             if allAnswersAreMatching {
                 finishGame(withResult: .victory)
@@ -109,7 +112,7 @@ class QuizGame {
     }
     
     func setQuizDuration(minutes: Int, seconds: Int) {
-        matchDuration = Double(minutes) * Double(seconds)
+        matchDuration = Double(minutes) * 60 + Double(seconds)
     }
     
     private func updateTick() {

@@ -25,6 +25,10 @@
 		7679AA09236EE7CA00BF867E /* StubHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA08236EE7CA00BF867E /* StubHelper.swift */; };
 		7679AA0B236F24D400BF867E /* TimeMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA0A236F24D400BF867E /* TimeMachine.swift */; };
 		7679AA0D236F24F800BF867E /* GameDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA0C236F24F800BF867E /* GameDelegateMock.swift */; };
+		7679AA10236F399A00BF867E /* Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA0F236F399A00BF867E /* Reactive.swift */; };
+		7679AA14236F3BAF00BF867E /* TimeFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA13236F3BAF00BF867E /* TimeFormatterTests.swift */; };
+		7679AA16236F3D3B00BF867E /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA15236F3D3B00BF867E /* TimeFormatter.swift */; };
+		7679AA18236F63D600BF867E /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA17236F63D600BF867E /* Array+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +64,10 @@
 		7679AA08236EE7CA00BF867E /* StubHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubHelper.swift; sourceTree = "<group>"; };
 		7679AA0A236F24D400BF867E /* TimeMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeMachine.swift; sourceTree = "<group>"; };
 		7679AA0C236F24F800BF867E /* GameDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDelegateMock.swift; sourceTree = "<group>"; };
+		7679AA0F236F399A00BF867E /* Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reactive.swift; sourceTree = "<group>"; };
+		7679AA13236F3BAF00BF867E /* TimeFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatterTests.swift; sourceTree = "<group>"; };
+		7679AA15236F3D3B00BF867E /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
+		7679AA17236F63D600BF867E /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +113,7 @@
 				7679A9FB236DFB5600BF867E /* Localized.swift */,
 				7679A9F3236DEF7600BF867E /* Presentation */,
 				7679A9F4236DEF7C00BF867E /* Domain */,
+				7679AA0E236F398400BF867E /* Utility */,
 				7679A9D6236DE46B00BF867E /* Assets.xcassets */,
 				7679A9D8236DE46B00BF867E /* LaunchScreen.storyboard */,
 				7679A9F9236DF2B000BF867E /* Localizable.strings */,
@@ -117,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				7679AA03236EE76E00BF867E /* QuizGameTests.swift */,
+				7679AA13236F3BAF00BF867E /* TimeFormatterTests.swift */,
 				7679AA05236EE79A00BF867E /* Helpers */,
 				7679A9E4236DE46B00BF867E /* CodeQuizTests.swift */,
 				7679A9E6236DE46B00BF867E /* Info.plist */,
@@ -154,6 +164,16 @@
 				7679AA06236EE7B600BF867E /* quizStub.json */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		7679AA0E236F398400BF867E /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				7679AA0F236F399A00BF867E /* Reactive.swift */,
+				7679AA15236F3D3B00BF867E /* TimeFormatter.swift */,
+				7679AA17236F63D600BF867E /* Array+Extension.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,8 +281,11 @@
 				7679A9F0236DEC0300BF867E /* QuizViewController.swift in Sources */,
 				7679A9FE236E13C500BF867E /* QuizAPI.swift in Sources */,
 				7679A9FC236DFB5600BF867E /* Localized.swift in Sources */,
+				7679AA18236F63D600BF867E /* Array+Extension.swift in Sources */,
 				7679A9F8236DF01700BF867E /* Quiz.swift in Sources */,
+				7679AA10236F399A00BF867E /* Reactive.swift in Sources */,
 				7679AA02236E25AE00BF867E /* QuizStatsView.swift in Sources */,
+				7679AA16236F3D3B00BF867E /* TimeFormatter.swift in Sources */,
 				7679AA00236E16E300BF867E /* QuizGame.swift in Sources */,
 				7679A9F6236DEF8B00BF867E /* QuizView.swift in Sources */,
 				7679A9F2236DECE600BF867E /* Style.swift in Sources */,
@@ -275,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7679AA0B236F24D400BF867E /* TimeMachine.swift in Sources */,
+				7679AA14236F3BAF00BF867E /* TimeFormatterTests.swift in Sources */,
 				7679AA04236EE76E00BF867E /* QuizGameTests.swift in Sources */,
 				7679AA09236EE7CA00BF867E /* StubHelper.swift in Sources */,
 				7679AA0D236F24F800BF867E /* GameDelegateMock.swift in Sources */,

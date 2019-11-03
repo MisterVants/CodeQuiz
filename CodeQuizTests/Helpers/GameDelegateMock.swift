@@ -17,6 +17,8 @@ class GameDelegateMock: QuizGameDelegate {
     private(set) var hasReceivedScoreUpdate = false
     private(set) var notifiedScore: Int = 0
     
+    private(set) var hasInsertedAnswer = false
+    
     private(set) var hasReceivedStateUpdate = false
     private(set) var notifiedState: QuizGame.State?
     
@@ -43,6 +45,10 @@ class GameDelegateMock: QuizGameDelegate {
     func quizGame(_ game: QuizGame, shouldUpdateScore newScore: Int) {
         hasReceivedScoreUpdate = true
         notifiedScore = newScore
+    }
+    
+    func quizGame(_ game: QuizGame, didInsertAnswerAt index: Int) {
+        hasInsertedAnswer = true
     }
     
     func quizGame(_ game: QuizGame, didChangeState newState: QuizGame.State) {

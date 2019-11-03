@@ -98,7 +98,7 @@ class QuizGameTests: XCTestCase {
         preparedGame.startQuiz()
         gameDelegate.resetState()
         
-        preparedGame.quiz?.answer.forEach { _ = preparedGame.matchAnswer($0) }
+        preparedGame.quiz?.answer.forEach { _ = preparedGame.matchAnswer($0.capitalized) }
         
         XCTAssertTrue(gameDelegate.hasFinished, "The delegate should be notified when the game finishes.")
         XCTAssert(gameDelegate.finishStatus == .victory)
@@ -158,8 +158,19 @@ class QuizGameTests: XCTestCase {
         
         XCTAssertTrue(answerMatches)
         XCTAssert(preparedGame.matchedAnswers.contains(targetAnswer), "A correct answer should be added to the list.")
+        XCTAssert(gameDelegate.hasInsertedAnswer, "The delegate should be notified about a answer insertion.")
         XCTAssert(gameDelegate.hasReceivedScoreUpdate, "The delegate should be notified about a score update.")
         XCTAssert(gameDelegate.notifiedScore == preparedGame.currentScore)
+    }
+    
+    func testMatchAnswer_successIsCaseInsensitive() {
+        preparedGame.startQuiz()
+        gameDelegate.resetState()
+        let targetAnswer = (preparedGame.quiz?.answer.first ?? "").uppercased()
+        
+        let answerMatches = preparedGame.matchAnswer(targetAnswer)
+        
+        XCTAssertTrue(answerMatches)
     }
     
     func testMatchAnswer_successOrdering() {
@@ -181,6 +192,7 @@ class QuizGameTests: XCTestCase {
         
         XCTAssertFalse(answerMatches)
         XCTAssertFalse(gameDelegate.hasReceivedScoreUpdate, "The delegate is not warned if an answer matching fails.")
+        XCTAssertFalse(gameDelegate.hasInsertedAnswer)
     }
     
     func testMatchAnswer_failsWhenAlreadyMatched() {
@@ -197,11 +209,14 @@ class QuizGameTests: XCTestCase {
     
     func testSetMatchDuration() {
         let previousDuration = preparedGame.matchDuration
+        let newDuration = previousDuration * 2
+        let digitsPrecision = 1
         
-        preparedGame.setQuizDuration(minutes: 0, seconds: Int(previousDuration) * 2)
-        let durationChanged = !preparedGame.matchDuration.isEqual(to: previousDuration, upToDecimalDigits: 1)
+        preparedGame.setQuizDuration(minutes: 0, seconds: Int(newDuration))
+        let durationChanged = !preparedGame.matchDuration.isEqual(to: previousDuration, upToDecimalDigits: digitsPrecision)
         
         XCTAssert(durationChanged)
+        XCTAssert(preparedGame.matchDuration.isEqual(to: newDuration, upToDecimalDigits: digitsPrecision))
     }
     
     func testUpdate_NotifyAboutTimeRemaining() {

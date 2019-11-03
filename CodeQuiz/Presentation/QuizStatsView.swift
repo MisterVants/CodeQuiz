@@ -10,21 +10,19 @@ import UIKit
 
 class QuizStatsView: UIView {
     
-    private let scoreLabel: UILabel = {
+    let scoreLabel: UILabel = {
         let label = UILabel()
-        label.text = "00/00"
         label.font = UIFont.preferredFont(forTextStyle: .title1, weight: .bold)
         return label
     }()
     
-    private let timeLabel: UILabel = {
+    let timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "00:00"
         label.font = UIFont.preferredFont(forTextStyle: .title1, weight: .bold)
         return label
     }()
     
-    private let button: UIButton = {
+    let button: UIButton = {
         let button = UIButton(type: .custom)
         button.backgroundColor = UIColor.orange
         button.layer.cornerRadius = 8
@@ -35,8 +33,19 @@ class QuizStatsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setAppearance()
+        layoutView()
+    }
+    
+    private func setAppearance() {
         backgroundColor = UIColor.graySuperLight
-        
+        layer.shadowColor = UIColor.gray.cgColor
+        layer.shadowOffset = .zero
+        layer.shadowRadius = 1
+        layer.shadowOpacity = 1
+    }
+    
+    private func layoutView() {
         addLayoutGuide(layoutGuide)
         addSubview(scoreLabel)
         addSubview(timeLabel)
@@ -58,7 +67,7 @@ class QuizStatsView: UIView {
             timeLabel.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor)]
         
         let buttonConstraints = [
-            button.heightAnchor.constraint(equalToConstant: 44),
+            button.heightAnchor.constraint(equalToConstant: 48),
             button.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor, constant: Spacing.default),
             button.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor),
             button.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor),

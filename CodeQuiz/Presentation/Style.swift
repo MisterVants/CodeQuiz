@@ -24,6 +24,9 @@ extension UIColor {
     
     /// HEX = `#F5F5F5` / RGB = 245, 245, 245
     static let graySuperLight = UIColor(literalRed: 245, green: 245, blue: 245)
+    
+    /// HEX = `#EBEBEB` / RGB = 235, 235, 235
+    static let textFieldGray = UIColor(literalRed: 235, green: 235, blue: 235)
 }
 
 extension UIColor {
