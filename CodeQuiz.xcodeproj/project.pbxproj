@@ -20,6 +20,11 @@
 		7679A9FE236E13C500BF867E /* QuizAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679A9FD236E13C500BF867E /* QuizAPI.swift */; };
 		7679AA00236E16E300BF867E /* QuizGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679A9FF236E16E300BF867E /* QuizGame.swift */; };
 		7679AA02236E25AE00BF867E /* QuizStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA01236E25AE00BF867E /* QuizStatsView.swift */; };
+		7679AA04236EE76E00BF867E /* QuizGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA03236EE76E00BF867E /* QuizGameTests.swift */; };
+		7679AA07236EE7B600BF867E /* quizStub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7679AA06236EE7B600BF867E /* quizStub.json */; };
+		7679AA09236EE7CA00BF867E /* StubHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA08236EE7CA00BF867E /* StubHelper.swift */; };
+		7679AA0B236F24D400BF867E /* TimeMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA0A236F24D400BF867E /* TimeMachine.swift */; };
+		7679AA0D236F24F800BF867E /* GameDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA0C236F24F800BF867E /* GameDelegateMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +55,11 @@
 		7679A9FD236E13C500BF867E /* QuizAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizAPI.swift; sourceTree = "<group>"; };
 		7679A9FF236E16E300BF867E /* QuizGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizGame.swift; sourceTree = "<group>"; };
 		7679AA01236E25AE00BF867E /* QuizStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizStatsView.swift; sourceTree = "<group>"; };
+		7679AA03236EE76E00BF867E /* QuizGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizGameTests.swift; sourceTree = "<group>"; };
+		7679AA06236EE7B600BF867E /* quizStub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = quizStub.json; sourceTree = "<group>"; };
+		7679AA08236EE7CA00BF867E /* StubHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubHelper.swift; sourceTree = "<group>"; };
+		7679AA0A236F24D400BF867E /* TimeMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeMachine.swift; sourceTree = "<group>"; };
+		7679AA0C236F24F800BF867E /* GameDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDelegateMock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +116,8 @@
 		7679A9E3236DE46B00BF867E /* CodeQuizTests */ = {
 			isa = PBXGroup;
 			children = (
+				7679AA03236EE76E00BF867E /* QuizGameTests.swift */,
+				7679AA05236EE79A00BF867E /* Helpers */,
 				7679A9E4236DE46B00BF867E /* CodeQuizTests.swift */,
 				7679A9E6236DE46B00BF867E /* Info.plist */,
 			);
@@ -131,6 +143,17 @@
 				7679A9FD236E13C500BF867E /* QuizAPI.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		7679AA05236EE79A00BF867E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				7679AA0A236F24D400BF867E /* TimeMachine.swift */,
+				7679AA0C236F24F800BF867E /* GameDelegateMock.swift */,
+				7679AA08236EE7CA00BF867E /* StubHelper.swift */,
+				7679AA06236EE7B600BF867E /* quizStub.json */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,6 +247,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7679AA07236EE7B600BF867E /* quizStub.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +274,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7679AA0B236F24D400BF867E /* TimeMachine.swift in Sources */,
+				7679AA04236EE76E00BF867E /* QuizGameTests.swift in Sources */,
+				7679AA09236EE7CA00BF867E /* StubHelper.swift in Sources */,
+				7679AA0D236F24F800BF867E /* GameDelegateMock.swift in Sources */,
 				7679A9E5236DE46B00BF867E /* CodeQuizTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
