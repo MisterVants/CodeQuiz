@@ -42,27 +42,25 @@ class QuizView: UIView {
     }()
     
     private let footerView = QuizStatsView()
-    
+    private let loadingView = LoadingView()
     private let headerGuide = UILayoutGuide()
     
     init(controller: QuizViewController) {
         super.init(frame: .zero)
-        
+        backgroundColor = .white
+        bindController(controller)
+        layoutView()
+    }
+    
+    private func bindController(_ controller: QuizViewController) {
         tableView.dataSource = controller
         inputField.addTarget(controller, action: #selector(controller.textFieldDidChange(_:)), for: .editingChanged)
         footerView.button.addTarget(controller, action: #selector(controller.didPressGameButton(_:)), for: .touchUpInside)
         
-        controller.scoreText.bindAndUpdate { [unowned self] in
-            self.footerView.scoreLabel.text = $0
-        }
-//
-        controller.timestampText.bindAndUpdate { [unowned self] in
-            self.footerView.timeLabel.text = $0
-        }
-        
-        controller.actionText.bindAndUpdate { [unowned self] in
-            self.footerView.button.setTitle($0, for: .normal)
-        }
+        controller.scoreText.bindAndUpdate { [weak self] in self?.footerView.scoreLabel.text = $0 }
+        controller.timestampText.bindAndUpdate { [weak self] in self?.footerView.timeLabel.text = $0 }
+        controller.actionText.bindAndUpdate { [weak self] in self?.footerView.button.setTitle($0, for: .normal) }
+        controller.isLoading.bindAndUpdate { [weak self] loading in self?.loadingView.isHidden = loading ? false : true }
         
         controller.didLoadQuiz = { [unowned self] question in
             self.questionLabel.text = question
@@ -77,9 +75,6 @@ class QuizView: UIView {
         controller.insertIndexPaths = { [unowned self] indexPaths in
             self.tableView.insertRows(at: indexPaths, with: .right)
         }
-        
-        backgroundColor = .white
-        layoutView()
     }
     
     private func layoutView() {
@@ -88,6 +83,7 @@ class QuizView: UIView {
         addSubview(inputField)
         addSubview(tableView)
         addSubview(footerView)
+        addSubview(loadingView)
         subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         let headerConstraints = [
@@ -111,19 +107,25 @@ class QuizView: UIView {
             tableView.topAnchor.constraint(equalTo: headerGuide.bottomAnchor, constant: 8),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ]
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor)]
         
         let footerConstraints = [
             footerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             footerView.trailingAnchor.constraint(equalTo: trailingAnchor),
             footerView.bottomAnchor.constraint(equalTo: bottomAnchor)]
         
+        let loadingConstraints = [
+            loadingView.topAnchor.constraint(equalTo: topAnchor),
+            loadingView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: bottomAnchor)]
+        
         NSLayoutConstraint.activate([headerConstraints,
                                      questionConstraints,
                                      inputConstraints,
                                      tableConstraints,
-                                     footerConstraints].flatMap {$0})
+                                     footerConstraints,
+                                     loadingConstraints].flatMap {$0})
     }
     
     required init?(coder: NSCoder) {

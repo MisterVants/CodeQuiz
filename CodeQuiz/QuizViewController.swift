@@ -17,6 +17,7 @@ class QuizViewController: UIViewController {
     var scoreText = Reactive("00/00")
     var timestampText = Reactive("00:00")
     var actionText = Reactive(Localized.start)
+    var isLoading = Reactive(false)
     
     private let api = QuizAPI()
     private let game = QuizGame()
@@ -28,8 +29,7 @@ class QuizViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         game.delegate = self
-//        game.setQuizDuration(minutes: 5, seconds: 0)
-        game.setQuizDuration(minutes: 0, seconds: 5)
+        game.setQuizDuration(minutes: 5, seconds: 0)
         loadQuiz()
     }
     
@@ -46,6 +46,7 @@ class QuizViewController: UIViewController {
     }
     
     private func loadQuiz() {
+        isLoading.value = true
         api.getQuiz { result in
             do {
                 let quiz = try result.get()
@@ -54,6 +55,7 @@ class QuizViewController: UIViewController {
             } catch {
                 // error
             }
+            DispatchQueue.main.async { self.isLoading.value = false }
         }
     }
     

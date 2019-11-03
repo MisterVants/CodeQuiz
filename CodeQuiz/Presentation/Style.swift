@@ -13,6 +13,9 @@ enum Spacing {
     /// Value: 16.0
     static let `default`: CGFloat = 16.0
     
+    /// Value: 24.0
+    static let large: CGFloat = 24.0
+    
     /// Value: 44.0
     static let topPadding: CGFloat = 44.0
 }
@@ -24,6 +27,9 @@ extension UIColor {
     
     /// HEX = `#F5F5F5` / RGB = 245, 245, 245
     static let graySuperLight = UIColor(literalRed: 245, green: 245, blue: 245)
+    
+    /// HEX = `#191919` / RGB = 25, 25, 25
+    static let graySuperDark = UIColor(literalRed: 25, green: 25, blue: 25)
     
     /// HEX = `#EBEBEB` / RGB = 235, 235, 235
     static let textFieldGray = UIColor(literalRed: 235, green: 235, blue: 235)
