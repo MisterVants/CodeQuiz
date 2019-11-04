@@ -62,11 +62,11 @@ class QuizView: UIView {
     private func bindController(_ controller: QuizViewController) {
         tableView.dataSource = controller
         inputField.addTarget(controller, action: #selector(controller.textFieldDidChange(_:)), for: .editingChanged)
-        footerView.button.addTarget(controller, action: #selector(controller.didPressGameButton(_:)), for: .touchUpInside)
+        footerView.gameButton.addTarget(controller, action: #selector(controller.didPressGameButton(_:)), for: .touchUpInside)
         
         controller.scoreText.bindAndUpdate { [weak self] in self?.footerView.scoreLabel.text = $0 }
         controller.timestampText.bindAndUpdate { [weak self] in self?.footerView.timeLabel.text = $0 }
-        controller.actionText.bindAndUpdate { [weak self] in self?.footerView.button.setTitle($0, for: .normal) }
+        controller.actionText.bindAndUpdate { [weak self] in self?.footerView.gameButton.setTitle($0, for: .normal) }
         controller.isLoading.bindAndUpdate { [weak self] loading in self?.loadingView.isHidden = loading ? false : true }
         
         controller.didLoadQuiz = { [unowned self] question in
