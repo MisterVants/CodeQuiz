@@ -16,6 +16,7 @@ class QuizView: UIView {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .largeTitle).bold()
         label.numberOfLines = 2
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -43,13 +44,19 @@ class QuizView: UIView {
     
     private let footerView = QuizStatsView()
     private let loadingView = LoadingView()
-    private let headerGuide = UILayoutGuide()
+    
+    private var topConstraint: NSLayoutConstraint?
+    private var bottomConstraint: NSLayoutConstraint?
     
     init(controller: QuizViewController) {
         super.init(frame: .zero)
         backgroundColor = .white
         bindController(controller)
         layoutView()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillChange(_:)),
+                                               name: UIResponder.keyboardWillChangeFrameNotification,
+                                               object: nil)
     }
     
     private func bindController(_ controller: QuizViewController) {
@@ -78,7 +85,6 @@ class QuizView: UIView {
     }
     
     private func layoutView() {
-        addLayoutGuide(headerGuide)
         addSubview(questionLabel)
         addSubview(inputField)
         addSubview(tableView)
@@ -86,33 +92,31 @@ class QuizView: UIView {
         addSubview(loadingView)
         subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
-        let headerConstraints = [
-            headerGuide.topAnchor.constraint(equalTo: topAnchor, constant: Spacing.topPadding),
-            headerGuide.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Spacing.default),
-            headerGuide.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Spacing.default)]
-        
+        let topConstraint = questionLabel.topAnchor.constraint(equalTo: topAnchor, constant: Spacing.topPadding)
         let questionConstraints = [
-            questionLabel.topAnchor.constraint(equalTo: headerGuide.topAnchor),
-            questionLabel.leadingAnchor.constraint(equalTo: headerGuide.leadingAnchor),
-            questionLabel.trailingAnchor.constraint(equalTo: headerGuide.trailingAnchor)]
+            topConstraint,
+            questionLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: Spacing.default),
+            questionLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Spacing.default)]
+        self.topConstraint = topConstraint
         
         let inputConstraints = [
             inputField.topAnchor.constraint(equalTo: questionLabel.bottomAnchor, constant: Spacing.default),
-            inputField.leadingAnchor.constraint(equalTo: headerGuide.leadingAnchor),
-            inputField.trailingAnchor.constraint(equalTo: headerGuide.trailingAnchor),
-            inputField.bottomAnchor.constraint(equalTo: headerGuide.bottomAnchor),
+            inputField.leadingAnchor.constraint(equalTo: questionLabel.leadingAnchor),
+            inputField.trailingAnchor.constraint(equalTo: questionLabel.trailingAnchor),
             inputField.heightAnchor.constraint(equalToConstant: Style.textFieldHeight)]
         
         let tableConstraints = [
-            tableView.topAnchor.constraint(equalTo: headerGuide.bottomAnchor, constant: Spacing.small),
+            tableView.topAnchor.constraint(equalTo: inputField.bottomAnchor, constant: Spacing.small),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomAnchor)]
+            tableView.bottomAnchor.constraint(equalTo: footerView.topAnchor)]
         
+        let bottomConstraint = footerView.bottomAnchor.constraint(equalTo: bottomAnchor)
         let footerConstraints = [
             footerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             footerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            footerView.bottomAnchor.constraint(equalTo: bottomAnchor)]
+            bottomConstraint]
+        self.bottomConstraint = bottomConstraint
         
         let loadingConstraints = [
             loadingView.topAnchor.constraint(equalTo: topAnchor),
@@ -120,12 +124,35 @@ class QuizView: UIView {
             loadingView.trailingAnchor.constraint(equalTo: trailingAnchor),
             loadingView.bottomAnchor.constraint(equalTo: bottomAnchor)]
         
-        NSLayoutConstraint.activate([headerConstraints,
-                                     questionConstraints,
+        NSLayoutConstraint.activate([questionConstraints,
                                      inputConstraints,
                                      tableConstraints,
                                      footerConstraints,
                                      loadingConstraints].flatMap {$0})
+    }
+    
+    @objc private func keyboardWillChange(_ notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        
+        let animationDuration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0.0
+        let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        let endFrameY = endFrame?.origin.y ?? 0
+        let isOpening = endFrameY < UIScreen.main.bounds.size.height
+        
+        let maxVisibleY = endFrameY - convert(frame.origin, to: nil).y
+        let displaceDistance = isOpening ? bounds.height - maxVisibleY : 0
+        
+        UIView.animate(withDuration: animationDuration) {
+            
+            if UITraitCollection.current.verticalSizeClass == .compact {
+                self.topConstraint?.constant = isOpening ? 0 : Spacing.topPadding
+                self.bottomConstraint?.constant = 0
+            } else {
+                self.topConstraint?.constant = Spacing.topPadding
+                self.bottomConstraint?.constant = -displaceDistance
+            }
+            self.layoutIfNeeded()
+        }
     }
     
     required init?(coder: NSCoder) {

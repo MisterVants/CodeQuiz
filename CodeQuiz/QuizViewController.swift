@@ -30,6 +30,7 @@ class QuizViewController: UIViewController {
         super.viewDidLoad()
         game.delegate = self
         game.setQuizDuration(minutes: 5, seconds: 0)
+        setupGesture()
         loadQuiz()
     }
     
@@ -43,6 +44,17 @@ class QuizViewController: UIViewController {
         if game.matchAnswer(possibleAnswer) {
             textField.text = nil
         }
+    }
+    
+    @objc func endEditing() {
+        view.endEditing(true)
+    }
+    
+    private func setupGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(endEditing))
+        tap.delegate = self
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
     
     private func loadQuiz() {
@@ -81,6 +93,18 @@ extension QuizViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         cell.indentationLevel = 1
         return cell
+    }
+}
+
+// MARK: Gesture Recognizer Delegate
+
+extension QuizViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if let touchedView = touch.view, touchedView.isKind(of: UIButton.self) {
+            return false
+        }
+        return true
     }
 }
 

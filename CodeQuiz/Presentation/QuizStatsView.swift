@@ -55,9 +55,9 @@ class QuizStatsView: UIView {
         
         let guideConstraints = [
             layoutGuide.topAnchor.constraint(equalTo: topAnchor, constant: Spacing.default),
-            layoutGuide.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Spacing.default),
-            layoutGuide.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Spacing.default),
-            layoutGuide.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Spacing.default)]
+            layoutGuide.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: Spacing.default),
+            layoutGuide.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Spacing.default),
+            layoutGuide.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -Spacing.default)]
         
         let scoreConstraints = [
             scoreLabel.topAnchor.constraint(equalTo: layoutGuide.topAnchor),
