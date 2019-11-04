@@ -77,6 +77,7 @@ extension QuizViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: QuizView.tableCellIdentifier, for: indexPath)
         cell.textLabel?.text = game.matchedAnswers[indexPath.row]
+        cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         cell.selectionStyle = .none
         cell.indentationLevel = 1
         return cell

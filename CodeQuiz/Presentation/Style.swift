@@ -8,7 +8,32 @@
 
 import UIKit
 
+// MARK: Styling
+
+enum Style {
+    
+    static let textFieldHeight: CGFloat = 50
+    
+    static let buttonHeight: CGFloat = 48
+    
+    static let dimAlpha: CGFloat = 0.5
+    
+    enum Corner {
+        
+        /// Value: 8.0
+        static let smallRadius: CGFloat = 8.0
+        
+        /// Value: 16.0
+        static let largeRadius: CGFloat = 16.0
+    }
+}
+
+// MARK: Spacing
+
 enum Spacing {
+    
+    /// Value: 8.0
+    static let small: CGFloat = 8.0
     
     /// Value: 16.0
     static let `default`: CGFloat = 16.0
@@ -18,7 +43,11 @@ enum Spacing {
     
     /// Value: 44.0
     static let topPadding: CGFloat = 44.0
+    
+    static let textFieldInset: CGFloat = 10.0
 }
+
+// MARK: Color Utility
 
 extension UIColor {
     
@@ -39,5 +68,23 @@ extension UIColor {
 
     convenience init(literalRed red: Int, green: Int, blue: Int, alpha: Float = 1.0) {
         self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: CGFloat(alpha))
+    }
+}
+
+// MARK: Font Utility
+
+extension UIFont {
+    
+    func withTraits(traits:UIFontDescriptor.SymbolicTraits) -> UIFont {
+        let descriptor = fontDescriptor.withSymbolicTraits(traits) ?? UIFontDescriptor()
+        return UIFont(descriptor: descriptor, size: 0)
+    }
+
+    func bold() -> UIFont {
+        return self.withTraits(traits: .traitBold)
+    }
+
+    func italic() -> UIFont {
+        return self.withTraits(traits: .traitItalic)
     }
 }

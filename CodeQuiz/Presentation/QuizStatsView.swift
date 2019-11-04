@@ -12,20 +12,21 @@ class QuizStatsView: UIView {
     
     let scoreLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .title1, weight: .bold)
+        label.font = UIFont.preferredFont(forTextStyle: .title1).bold()
         return label
     }()
     
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .title1, weight: .bold)
+        label.font = UIFont.preferredFont(forTextStyle: .title1).bold()
         return label
     }()
     
     let button: UIButton = {
         let button = UIButton(type: .custom)
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         button.backgroundColor = UIColor.orange
-        button.layer.cornerRadius = 8
+        button.layer.cornerRadius = Style.Corner.smallRadius
         return button
     }()
     
@@ -67,7 +68,7 @@ class QuizStatsView: UIView {
             timeLabel.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor)]
         
         let buttonConstraints = [
-            button.heightAnchor.constraint(equalToConstant: 48),
+            button.heightAnchor.constraint(equalToConstant: Style.buttonHeight),
             button.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor, constant: Spacing.default),
             button.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor),
             button.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor),

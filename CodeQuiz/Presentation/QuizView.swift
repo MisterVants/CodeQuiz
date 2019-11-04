@@ -14,7 +14,7 @@ class QuizView: UIView {
     
     private let questionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .largeTitle, weight: .bold)
+        label.font = UIFont.preferredFont(forTextStyle: .largeTitle).bold()
         label.numberOfLines = 2
         return label
     }()
@@ -24,11 +24,11 @@ class QuizView: UIView {
         textField.placeholder = Localized.placeholderText
         textField.borderStyle = .none
         textField.backgroundColor = UIColor.textFieldGray
-        textField.layer.cornerRadius = 8
+        textField.layer.cornerRadius = Style.Corner.smallRadius
         textField.spellCheckingType = .no
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .words
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.bounds.height))
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: Spacing.textFieldInset, height: textField.bounds.height))
         textField.leftViewMode = .always
         textField.isHidden = true
         return textField
@@ -101,10 +101,10 @@ class QuizView: UIView {
             inputField.leadingAnchor.constraint(equalTo: headerGuide.leadingAnchor),
             inputField.trailingAnchor.constraint(equalTo: headerGuide.trailingAnchor),
             inputField.bottomAnchor.constraint(equalTo: headerGuide.bottomAnchor),
-            inputField.heightAnchor.constraint(equalToConstant: 50)]
+            inputField.heightAnchor.constraint(equalToConstant: Style.textFieldHeight)]
         
         let tableConstraints = [
-            tableView.topAnchor.constraint(equalTo: headerGuide.bottomAnchor, constant: 8),
+            tableView.topAnchor.constraint(equalTo: headerGuide.bottomAnchor, constant: Spacing.small),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)]
@@ -130,13 +130,5 @@ class QuizView: UIView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-    }
-}
-
-extension UIFont {
-    
-    class func preferredFont(forTextStyle textStyle: UIFont.TextStyle, weight: UIFont.Weight) -> UIFont {
-        let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: textStyle)
-        return UIFont.systemFont(ofSize: descriptor.pointSize, weight: weight)
     }
 }

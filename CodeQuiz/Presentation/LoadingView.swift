@@ -13,7 +13,7 @@ class LoadingView: UIView {
     private let contentView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.graySuperDark
-        view.layer.cornerRadius = 16
+        view.layer.cornerRadius = Style.Corner.largeRadius
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -27,6 +27,7 @@ class LoadingView: UIView {
     private let label: UILabel = {
         let label = UILabel()
         label.text = Localized.loading
+        label.font = UIFont.preferredFont(forTextStyle: .title3).bold()
         label.textColor = .white
         label.textAlignment = .center
         return label
@@ -34,7 +35,7 @@ class LoadingView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        backgroundColor = UIColor.black.withAlphaComponent(Style.dimAlpha)
         layoutView()
         activityView.show()
     }
@@ -48,7 +49,7 @@ class LoadingView: UIView {
         let contentConstraints = [
             contentView.centerXAnchor.constraint(equalTo: centerXAnchor),
             contentView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            contentView.widthAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 1.2)
+            contentView.widthAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 1.25)
         ]
         
         let activityConstraints = [
