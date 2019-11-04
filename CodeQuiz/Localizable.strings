@@ -11,6 +11,10 @@
 "reset" = "Reset";
 "placeholderText" = "Insert Word";
 
+"error.title" = "Failed to load quiz";
+"error.message" = "Please, check your internet connection and try again.";
+"error.action" = "Retry";
+
 "quiz.success.title" = "Congratulations";
 "quiz.success.message" = "Good job! You found all the answers on time. Keep up with the great work.";
 "quiz.success.action" = "Play Again";

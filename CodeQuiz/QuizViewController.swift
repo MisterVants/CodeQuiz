@@ -59,21 +59,30 @@ class QuizViewController: UIViewController {
     
     private func loadQuiz() {
         isLoading.value = true
-        api.getQuiz { result in
-            do {
-                let quiz = try result.get()
-                self.game.prepareQuiz(quiz)
-                DispatchQueue.main.async { self.didLoadQuiz?(self.game.quiz?.question) }
-            } catch {
-                // error
+        api.getQuiz { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.processLoadResult(result)
             }
-            DispatchQueue.main.async { self.isLoading.value = false }
         }
     }
     
-    private func presentAlert(withTitle title: String, message: String, actionName: String) {
+    private func processLoadResult(_ result: Result<Quiz, Error>) {
+        do {
+            let quiz = try result.get()
+            game.prepareQuiz(quiz)
+            didLoadQuiz?(game.quiz?.question)
+        } catch {
+            presentAlert(withTitle: Localized.Error.title, message: Localized.Error.message, actionName: Localized.Error.action) { _ in
+                self.loadQuiz()
+            }
+        }
+        isLoading.value = false
+    }
+    
+    private func presentAlert(withTitle title: String, message: String, actionName: String, actionHandler: ((UIAlertAction) -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: actionName, style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: actionName, style: .default, handler: actionHandler))
         present(alert, animated: true, completion: nil)
     }
 }

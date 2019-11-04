@@ -15,6 +15,12 @@ enum Localized {
     static let reset = Localized.string(key: "reset")
     static let placeholderText = Localized.string(key: "placeholderText")
     
+    enum Error {
+        static let title = Localized.string(key: "error.title")
+        static let message = Localized.string(key: "error.message")
+        static let action = Localized.string(key: "error.action")
+    }
+    
     enum Quiz {
         enum Success {
             static let title = Localized.string(key: "quiz.success.title")
