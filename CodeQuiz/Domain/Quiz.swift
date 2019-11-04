@@ -7,6 +7,10 @@
 //
 
 struct Quiz: Codable {
+    
+    /// The guiding question that defines the goal of the quiz.
     let question: String
+    
+    /// An array containing all expected correct answers for the quiz.
     let answer: [String]
 }

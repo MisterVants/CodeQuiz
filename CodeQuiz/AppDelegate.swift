@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        // Opt-out of dark mode
+        // Opt-out of dark mode. For now...
         if #available(iOS 13.0, *) {
             window?.overrideUserInterfaceStyle = .light
         }
