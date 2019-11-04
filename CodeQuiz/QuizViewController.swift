@@ -34,6 +34,14 @@ class QuizViewController: UIViewController {
         loadQuiz()
     }
     
+    // We hide the keyboard when transitioning to landscape to avoid unintentionally breaking constraints in the process.
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        if newCollection.verticalSizeClass == .compact {
+            view.endEditing(true)
+        }
+    }
+    
     @objc func didPressGameButton(_ button: UIButton) {
         game.startQuiz(forcingRestart: true)
         reload?()
@@ -50,6 +58,7 @@ class QuizViewController: UIViewController {
         view.endEditing(true)
     }
     
+    // Setup a simple tap to hide keyboard. A scroll delegate on table view could be used to
     private func setupGesture() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(endEditing))
         tap.delegate = self
@@ -57,6 +66,7 @@ class QuizViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
+    // Load the quiz from the API, then process the result in main thread to allow UI updates.
     private func loadQuiz() {
         isLoading.value = true
         api.getQuiz { [weak self] result in
@@ -109,6 +119,7 @@ extension QuizViewController: UITableViewDataSource {
 
 extension QuizViewController: UIGestureRecognizerDelegate {
     
+    // Allow any button presses to pass through the tap gesture and hit the button itself.
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if let touchedView = touch.view, touchedView.isKind(of: UIButton.self) {
             return false

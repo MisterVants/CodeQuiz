@@ -86,7 +86,7 @@ class QuizGame {
         // Setup timer and fire first update
         gameTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
             guard let self = self else { return }
-            self.updateTick()
+            self.updateTick(timer)
         }
         gameTimer?.fire()
     }
@@ -115,9 +115,10 @@ class QuizGame {
         matchDuration = Double(minutes) * 60 + Double(seconds)
     }
     
-    private func updateTick() {
+    private func updateTick(_ timer: Timer) {
         delegate?.quizGame(self, shouldUpdateRemainingTime: remainingTime)
         if remainingTime <= 0 {
+            timer.invalidate()
             finishGame(withResult: .defeat)
         }
     }

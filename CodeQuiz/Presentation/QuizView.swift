@@ -134,6 +134,7 @@ class QuizView: UIView {
     @objc private func keyboardWillChange(_ notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         
+        // Get all info we need from the keyboard.
         let animationDuration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0.0
         let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
         let endFrameY = endFrame?.origin.y ?? 0
@@ -144,6 +145,7 @@ class QuizView: UIView {
         
         UIView.animate(withDuration: animationDuration) {
             
+            // Not only we keep footer at bottom, but also move the heading elements to allow for more useful space on smaller devices like iPhone SE.
             if UITraitCollection.current.verticalSizeClass == .compact {
                 self.topConstraint?.constant = isOpening ? 0 : Spacing.topPadding
                 self.bottomConstraint?.constant = 0

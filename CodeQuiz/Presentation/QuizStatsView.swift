@@ -10,19 +10,22 @@ import UIKit
 
 class QuizStatsView: UIView {
     
+    /// A label to displays a score in the format `00/00`
     let scoreLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title1).bold()
         return label
     }()
     
+    /// A label to displays a timestamp in the format `00:00`
     let timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title1).bold()
         return label
     }()
     
-    let button: UIButton = {
+    /// The button used to start and reset the quiz.
+    let gameButton: UIButton = {
         let button = UIButton(type: .custom)
         button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         button.backgroundColor = UIColor.orange
@@ -31,6 +34,9 @@ class QuizStatsView: UIView {
     }()
     
     private let layoutGuide = UILayoutGuide()
+    private var buttonTop: NSLayoutConstraint?
+    private var buttonHeight: NSLayoutConstraint?
+    private var closerBottom: NSLayoutConstraint?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,7 +56,7 @@ class QuizStatsView: UIView {
         addLayoutGuide(layoutGuide)
         addSubview(scoreLabel)
         addSubview(timeLabel)
-        addSubview(button)
+        addSubview(gameButton)
         subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         let guideConstraints = [
@@ -67,17 +73,39 @@ class QuizStatsView: UIView {
             timeLabel.topAnchor.constraint(equalTo: layoutGuide.topAnchor),
             timeLabel.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor)]
         
+        let buttonHeight = gameButton.heightAnchor.constraint(equalToConstant: Style.buttonHeight)
+        let buttonTop = gameButton.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor, constant: Spacing.default)
+        let closerBottom = scoreLabel.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor)
+        
         let buttonConstraints = [
-            button.heightAnchor.constraint(equalToConstant: Style.buttonHeight),
-            button.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor, constant: Spacing.default),
-            button.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor),
-            button.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor),
-            button.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor)]
+            buttonHeight,
+            buttonTop,
+            gameButton.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor),
+            gameButton.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor),
+            gameButton.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor)]
+        
+        self.buttonTop = buttonTop
+        self.buttonHeight = buttonHeight
+        self.closerBottom = closerBottom
         
         NSLayoutConstraint.activate([guideConstraints,
                                      scoreConstraints,
                                      timeConstraints,
                                      buttonConstraints].flatMap {$0})
+    }
+    
+    // The stats view takes too much space in landscape mode, so we hide the button to improve the content navigation.
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if UITraitCollection.current.verticalSizeClass == .compact {
+            buttonHeight?.constant = 0
+            buttonTop?.isActive = false
+            closerBottom?.isActive = true
+        } else {
+            buttonHeight?.constant = Style.buttonHeight
+            closerBottom?.isActive = false
+            buttonTop?.isActive = true
+        }
     }
     
     required init?(coder: NSCoder) {
