@@ -10,14 +10,18 @@ import UIKit
 
 class QuizViewController: UIViewController {
     
+    // MARK: Bindings
+    
     var didLoadQuiz: ((_ question: String?) -> Void)?
     var reload: (() -> Void)?
     var insertIndexPaths: ((_ inserted: [IndexPath]) -> Void)?
     
     var scoreText = Reactive("00/00")
-    var timestampText = Reactive("00:00")
+    var timestampText = Reactive("05:00")
     var actionText = Reactive(Localized.start)
     var isLoading = Reactive(false)
+    
+    // MARK: Lifecycle
     
     private let api = QuizAPI()
     private let game = QuizGame()
@@ -42,6 +46,8 @@ class QuizViewController: UIViewController {
         }
     }
     
+    // MARK: Control
+    
     @objc func didPressGameButton(_ button: UIButton) {
         game.startQuiz(forcingRestart: true)
         reload?()
@@ -57,6 +63,8 @@ class QuizViewController: UIViewController {
     @objc func endEditing() {
         view.endEditing(true)
     }
+    
+    // MARK: Private Methods
     
     // Setup a simple tap to hide keyboard. A scroll delegate on table view could be used to
     private func setupGesture() {

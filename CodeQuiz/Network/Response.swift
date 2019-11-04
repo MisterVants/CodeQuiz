@@ -10,19 +10,29 @@ import Foundation
 
 class Response<T: Decodable> {
     
+    /// The raw data that returned in a response.
     let data: Data?
+    
+    /// The request associated with the response.
     let request: URLRequest?
+    
+    /// The response that returned from the URL load request as a URLResponse.
     let urlResponse: URLResponse?
+    
+    /// If a URL load request returned with an error, it is captured as an `underlyingError`.
     let underlyingError: Error?
     
+    /// The response that returned from the URL load request as a HTTPURLResponse.
     var httpResponse: HTTPURLResponse? {
         urlResponse as? HTTPURLResponse
     }
     
+    /// All HTTP header fields associated with the response.
     var httpHeaders: [AnyHashable : Any] {
         return httpResponse?.allHeaderFields ?? [:]
     }
     
+    /// The final result of the request, containing either a decoded model or an error.
     lazy private(set) var result: Result<T, Error> = {
         let result = Self.validate(data, urlResponse, underlyingError).flatMap { validData -> Result<T, Error> in
             if let rawData = validData as? T {

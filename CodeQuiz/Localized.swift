@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ A namespace for strong-typed strings, organized in a way that can leverage the use of automatic code generation tools to build the strings from a Localized.strings file.
+ */
 enum Localized {
     
     static let loading = Localized.string(key: "loading")
