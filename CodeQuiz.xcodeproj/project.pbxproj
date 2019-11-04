@@ -31,6 +31,13 @@
 		7679AA18236F63D600BF867E /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA17236F63D600BF867E /* Array+Extension.swift */; };
 		7679AA1A236F874800BF867E /* Hideable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA19236F874800BF867E /* Hideable.swift */; };
 		7679AA1C236F892A00BF867E /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA1B236F892A00BF867E /* LoadingView.swift */; };
+		7679AA1F236F928600BF867E /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA1E236F928600BF867E /* NetworkError.swift */; };
+		7679AA21236F929C00BF867E /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA20236F929B00BF867E /* Response.swift */; };
+		7679AA23236F92A300BF867E /* HTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA22236F92A300BF867E /* HTTPStatusCode.swift */; };
+		7679AA25236F939700BF867E /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA24236F939700BF867E /* APIEndpoint.swift */; };
+		7679AA27236F93B600BF867E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA26236F93B600BF867E /* HTTPMethod.swift */; };
+		7679AA29236F98E300BF867E /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA28236F98E300BF867E /* Provider.swift */; };
+		7679AA2B236F991300BF867E /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7679AA2A236F991300BF867E /* APIConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +79,13 @@
 		7679AA17236F63D600BF867E /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		7679AA19236F874800BF867E /* Hideable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hideable.swift; sourceTree = "<group>"; };
 		7679AA1B236F892A00BF867E /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		7679AA1E236F928600BF867E /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		7679AA20236F929B00BF867E /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		7679AA22236F92A300BF867E /* HTTPStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
+		7679AA24236F939700BF867E /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
+		7679AA26236F93B600BF867E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		7679AA28236F98E300BF867E /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
+		7679AA2A236F991300BF867E /* APIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +106,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		767334AA236FB13D0039884F /* API */ = {
+			isa = PBXGroup;
+			children = (
+				7679A9FD236E13C500BF867E /* QuizAPI.swift */,
+				7679AA24236F939700BF867E /* APIEndpoint.swift */,
+				7679AA2A236F991300BF867E /* APIConfig.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		7679A9C1236DE46900BF867E = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +141,7 @@
 				7679A9FB236DFB5600BF867E /* Localized.swift */,
 				7679A9F3236DEF7600BF867E /* Presentation */,
 				7679A9F4236DEF7C00BF867E /* Domain */,
+				7679AA1D236F91C600BF867E /* Network */,
 				7679AA0E236F398400BF867E /* Utility */,
 				7679A9D6236DE46B00BF867E /* Assets.xcassets */,
 				7679A9D8236DE46B00BF867E /* LaunchScreen.storyboard */,
@@ -155,7 +180,7 @@
 			children = (
 				7679A9F7236DF01700BF867E /* Quiz.swift */,
 				7679A9FF236E16E300BF867E /* QuizGame.swift */,
-				7679A9FD236E13C500BF867E /* QuizAPI.swift */,
+				767334AA236FB13D0039884F /* API */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -180,6 +205,18 @@
 				7679AA19236F874800BF867E /* Hideable.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		7679AA1D236F91C600BF867E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				7679AA28236F98E300BF867E /* Provider.swift */,
+				7679AA20236F929B00BF867E /* Response.swift */,
+				7679AA1E236F928600BF867E /* NetworkError.swift */,
+				7679AA22236F92A300BF867E /* HTTPStatusCode.swift */,
+				7679AA26236F93B600BF867E /* HTTPMethod.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,20 +321,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7679AA27236F93B600BF867E /* HTTPMethod.swift in Sources */,
 				7679A9F0236DEC0300BF867E /* QuizViewController.swift in Sources */,
+				7679AA25236F939700BF867E /* APIEndpoint.swift in Sources */,
+				7679AA23236F92A300BF867E /* HTTPStatusCode.swift in Sources */,
 				7679A9FE236E13C500BF867E /* QuizAPI.swift in Sources */,
 				7679A9FC236DFB5600BF867E /* Localized.swift in Sources */,
 				7679AA18236F63D600BF867E /* Array+Extension.swift in Sources */,
 				7679A9F8236DF01700BF867E /* Quiz.swift in Sources */,
+				7679AA29236F98E300BF867E /* Provider.swift in Sources */,
 				7679AA1C236F892A00BF867E /* LoadingView.swift in Sources */,
 				7679AA10236F399A00BF867E /* Reactive.swift in Sources */,
 				7679AA02236E25AE00BF867E /* QuizStatsView.swift in Sources */,
+				7679AA21236F929C00BF867E /* Response.swift in Sources */,
 				7679AA16236F3D3B00BF867E /* TimeFormatter.swift in Sources */,
+				7679AA1F236F928600BF867E /* NetworkError.swift in Sources */,
 				7679AA1A236F874800BF867E /* Hideable.swift in Sources */,
 				7679AA00236E16E300BF867E /* QuizGame.swift in Sources */,
 				7679A9F6236DEF8B00BF867E /* QuizView.swift in Sources */,
 				7679A9F2236DECE600BF867E /* Style.swift in Sources */,
 				7679A9CE236DE46900BF867E /* AppDelegate.swift in Sources */,
+				7679AA2B236F991300BF867E /* APIConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
