@@ -10,10 +10,49 @@ import Foundation
 
 protocol QuizGameDelegate: AnyObject {
     
+    /**
+     Tells the delegate that the remaining match time has changed and should be updated.
+     
+     - parameters:
+        - game: A game object informing the delegate about an update.
+        - remainingTime: The remaining game time, in seconds.
+     */
     func quizGame(_ game: QuizGame, shouldUpdateRemainingTime remainingTime: TimeInterval)
+    
+    /**
+     Tells the delegate that the score has changed and should be updated.
+     
+     - parameters:
+        - game: A game object informing the delegate about an update.
+        - newScore: The remaining game time, in seconds.
+     */
     func quizGame(_ game: QuizGame, shouldUpdateScore newScore: Int)
+    
+    /**
+     Tells the delegate that a new answer was inserted at the specified index.
+     
+     - parameters:
+        - game: A game object informing the delegate about the new insertion.
+        - index: A index locating the insertion in the matched answers array.
+     */
     func quizGame(_ game: QuizGame, didInsertAnswerAt index: Int)
+    
+    /**
+     Tells the delegate that the state of the game has changed.
+     
+     - parameters:
+        - game: A game object informing the delegate about its new state.
+        - newState: The state that the game just entered.
+     */
     func quizGame(_ game: QuizGame, didChangeState newState: QuizGame.State)
+    
+    /**
+     Tells the delegate that the game has finished with a result.
+     
+     - parameters:
+        - game: A game object informing the delegate that it has finished a match.
+        - finishResult: The result of the finished match, either a `.victory` or a `.defeat`.
+     */
     func quizGame(_ game: QuizGame, didFinishWithResult finishResult: QuizGame.FinishResult)
 }
 
@@ -176,6 +215,7 @@ class QuizGame {
         matchDuration = Double(minutes) * 60 + Double(seconds)
     }
     
+    /// Performs an update loop and check for out of time condition..
     private func updateTick(_ timer: Timer) {
         delegate?.quizGame(self, shouldUpdateRemainingTime: remainingTime)
         if remainingTime <= 0 {
@@ -184,6 +224,7 @@ class QuizGame {
         }
     }
     
+    /// Finishes the game and warn delegate.
     private func finishGame(withResult finishResult: FinishResult) {
         gameTimer?.invalidate()
         gameTimer = nil
