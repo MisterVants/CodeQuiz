@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  CodeQuiz
+
+  Created by André Vants Soares de Almeida on 02/11/19.
+  Copyright © 2019 André Vants. All rights reserved.
+*/
+
+"loading" = "Loading...";
+"start" = "Start";
+"reset" = "Reset";
+"placeholderText" = "Insert Word";
+
+"error.title" = "Failed to load quiz";
+"error.message" = "Please, check your internet connection and try again.";
+"error.action" = "Retry";
+
+"quiz.success.title" = "Congratulations";
+"quiz.success.message" = "Good job! You found all the answers on time. Keep up with the great work.";
+"quiz.success.action" = "Play Again";
+
+"quiz.failure.title" = "Time finished";
+"quiz.failure.message" = "Sorry, time is up! You got %@ out of %@ answers.";
+"quiz.failure.action" = "Try Again";
